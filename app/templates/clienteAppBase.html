@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+      
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="navbar-fixed">
+      <nav>
+        <div class="nav-wrapper">
+          <a href="{% url 'homeClientes'  %}" class="brand-logo">Mazamorrapp</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li id="registro" ><a href="{% url 'registroClientes'  %}" >Configurar perfil</a></li>
+            <li id="peticiones"  > <a href="{% url 'peticionesClientes'  %}">Pedir Repartidor</a></li>
+            <li id="peticiones"  > <a href="{% url 'peticionesHechasClientes'  %}">Revisar peticione</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    
+
+  {% block body %}
+  {% endblock %} 
+    
+
+
+    <footer class="page-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">MAZAMORRAPP</h5>
+            <p class="grey-text text-lighten-4">Desarrollo de la applicación Mazamorrapp</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+        © 2022 Copyright Mazamorrapp
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
