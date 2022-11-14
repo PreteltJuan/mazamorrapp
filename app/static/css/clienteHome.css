@@ -1,0 +1,34 @@
+.main{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+
+
+.main-content{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-content .content{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-content .content .content-header h2{
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    font-weight: 300;
+    text-decoration: none;
+    color: black;
+}
+
+
+form{
+    display: flex;
+    flex-direction: column;
+
+}

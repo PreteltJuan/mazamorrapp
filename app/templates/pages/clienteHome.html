@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/clienteHome.css' %}" />
+{% endblock %} 
+{% block body %}
+
+<div class="main">
+    <div class="main-content">
+        <div class="content">
+            <div class="content-header">
+                <h2>hacer peticiones</h2>
+            </div>
+            <div class="content-body">
+                <form action="{% url 'homeClientes' %}"  method="post">
+                    {% csrf_token %} 
+                    {{ orderRequest }}
+                    <button type="submit">Enviar</button>
+                </form>
+            </div>
+        </div>
+        <div class="content">
+            <div class="content-header">
+                <h2>estado peticiones</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %} 

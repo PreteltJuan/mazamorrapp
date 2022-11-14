@@ -1,26 +1,20 @@
 from django.shortcuts import render, redirect
-
-# Create your views here.
-
+from .forms import OrderRequest
+from .models import Order
 def clientesHome(request):
-    return redirect('registroClientes')
-
-def clientesRegistro(request):
-    return render(request, "pages/clienteAppRegistro.html")
-
-def clientesPeticiones(request):
-    return render(request, "pages/clienteAppPeticiones.html")
-
-
-def clientesPeticionesHechas(request):
-    return render(request, "pages/clienteAppPeticionesHechas.html")
-
-
-def repartidorHome(request):
-    return redirect('registroRepartidor')
+    orderRequest = OrderRequest()
+    return render(request, 'pages/clienteHome.html', { 'orderRequest' : orderRequest})
     
-def repartidorRegistro(request):
-    return render(request, "pages/repartidorAppRegistro.html")
 
-def repartidorPeticiones(request):
-    return render(request, "pages/repartidorAppPeticiones.html")
+def vendedoresHome(request):
+    orders = Order.objects.all()
+    return render(request, 'pages/vendedorHome.html', { 'orders' : orders})
+    
+
+
+
+
+
+
+
+    

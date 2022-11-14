@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/vendedorHome.css' %}" />
+{% endblock %} 
+{% block body %}
+
+<div class="main">
+    <div class="main-content">
+        <div class="content">
+            <div class="content-header">
+                <h2>estado peticiones</h2>
+            </div>
+            <div class="div">
+                <table class="tabla">
+                    <tr>
+                        <th>Name </th>
+                        <th>Amount</th>
+                        <th>Address</th>
+                        <th>Time</th>
+                    </tr>
+                    {% for order in orders%}
+                    <tr>
+                      <td>{{ order.name }}</td>
+                      <td>{{ order.amount }}</td>
+                      <td>{{ p.address }}</td>
+                      <td>{{ p.time }}</td>
+                    <tr>
+                    {% endfor%}
+                  </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %} 
