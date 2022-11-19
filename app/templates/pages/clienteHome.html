@@ -1,32 +1,32 @@
 {% extends "base.html" %}
 {% load static %}
+{% block titulo %} Mazamorrap {% endblock %}
+
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'css/clienteHome.css' %}" />
 {% endblock %} 
-{% block body %}
+{% block body %} 
 
-<div class="main">
-    <div class="main-content">
-        <div class="content">
-            <div class="content-header">
-                <h2>hacer peticiones</h2>
-            </div>
-            <div class="content-body">
-                <form action="{% url 'homeClientes' %}"  method="post">
-                    {% csrf_token %} 
-                    {{ orderRequest }}
-                    <button type="submit">Enviar</button>
-                </form>
-            </div>
+<main>
+  <div class="container">
+    <div class="clothescontainer">
+      {% for p in lista_productos%}
+      <a href="/app/producto/{{ p.nombre }}">
+        <div  class="card">
+          
+          {%if p.imagen %}
+            <img src="{{ p.imagen.url }}" alt="">
+          {%endif%}
+          <div class="info">
+            <p class="name">{{p.nombre}}</p>
+            <p class="precio">${{p.precio}}</p>
+          </div>
         </div>
-        <div class="content">
-            <div class="content-header">
-                <h2>estado peticiones</h2>
-            </div>
-        </div>
+      </a>
+    {% endfor%}
     </div>
-</div>
+  </div>
 
-
-{% endblock %} 
+</main>
+{% endblock %}
