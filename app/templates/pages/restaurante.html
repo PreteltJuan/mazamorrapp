@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% block titulo %} Mazamorrap {% endblock %}
+
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/restaurante.css' %}" />
+{% endblock %} 
+{% block body %} 
+
+<main>
+  <div class="container">
+      {% for p in lista_productos%}
+      <a >
+        <div  class="card">
+            <div class="card-info">
+                <div class="section-name-description">
+                  <p class="name">{{p.nombre}}</p>
+                  <p class="description">{{p.descripcion}}</p>
+                </div>
+                <div class="section-image">
+                    <div class="image">
+                        {%if p.imagen %}
+                            <img src="{{ p.imagen.url }}" alt="">
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+            <div class="card-precio">
+                <label for=""> ${{p.precio}}</label>
+                <a class="carrito" href=""><span class="material-symbols-outlined icons">shopping_cart   </span></a>
+            </div>
+        </div>
+      </a>
+    {% endfor%}
+  </div>
+</main>
+{% endblock %}

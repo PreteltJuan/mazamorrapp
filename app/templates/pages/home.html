@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+{% block titulo %} Mazamorrap {% endblock %}
+
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/clienteHome.css' %}" />
+{% endblock %} 
+{% block body %} 
+
+<main>
+  
+  <div class="restaurantes-container">
+    <div class="restaurantes-header">
+      <span class="part1">Restaurantes a </span><span class="title-app" >   Domicilio</span>
+    </div>
+    <div class="restaurantes-content">
+      {% for p in lista_restaurantes%}
+      <a href="{% url 'restaurante' p.nombre %}">
+        <div  class="card">
+          <div class="section-image">
+              {%if p.imagen %}
+                <img src="{{ p.imagen.url }}" alt="">
+              {%endif%}
+          </div>
+          <div class="card-info">
+            <div class="logo">
+              {%if p.logo %}
+                <img src="{{ p.logo.url }}" alt="">
+              {%endif%}
+            </div>
+            <span class="nombre"> {{ p.nombre }}</span> 
+            <div class="stars-container">
+              <span class="stars-number"> {{ p.estrellas }}</span>
+              <span class="material-symbols-outlined stars">hotel_class</span>
+            </div>
+          </div>
+        </div>
+      </a>
+    {% endfor%}
+
+    </div>
+  </div>
+  <div class="unete-container">
+    <div class="unete-header">
+      <span class="part1">Sé parte de </span> <span class="title-app">Mazamorrapp</span>
+    </div>
+    <div class="unete-content">
+      <a href="">
+        <div  class="card">
+          <div class="section-image">
+                <img src="{% static 'images/vendedor.webp' %}" alt="">
+          </div>
+          <div class="card-info-unete">
+            <span class="title-card">Registra tu restaurante</span>
+            <p class="card-description">Accede a cientos de usuarios y posiciona tu marca con nosotros.</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+
+
+</main>
+{% endblock %}

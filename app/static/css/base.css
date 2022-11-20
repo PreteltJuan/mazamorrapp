@@ -4,6 +4,7 @@
     --background3: #F7F8F9;
     --font-family1: 'Pacifico', cursive;
     --font-family2: 'Comfortaa', cursive;
+    --font-family3: 'Lobster', cursive;
 }
 
 html {
@@ -25,7 +26,6 @@ header{
     display: flex;
     align-items: center;
     background-color: var(--background1);
-    padding: 0px 10px;
 }
 
 header a{
@@ -34,8 +34,10 @@ header a{
 }
 
 .menu-icon{
-    width: 60px;
-    margin: 0px 10px;
+    width: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .title-app-1{
@@ -44,7 +46,7 @@ header a{
     font-family: var(--font-family1);
     color: white;
     text-decoration: none;
-    margin: 0px 10px;
+    margin: 0px 2%;
 }
 
 .title-app-1 h1{
@@ -52,7 +54,7 @@ header a{
 }
 
 .find{
-    width: 70vw;
+    width: 70%;
     height: 80%;
     background-color: var(--background1);
     
@@ -99,14 +101,14 @@ header a{
 
 
 .carrito{
-    padding: 0px 16px;
+    padding: 0px 2%;
 }
 
 .ingreso{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0px 16px;
+    padding: 0px 2%;
 }
 
 .ingreso .tag-ingreso{
@@ -119,7 +121,7 @@ footer{
     display: flex;
     justify-content: center;
     background-color: var(--background1);
-    padding: 60px 0px;
+    padding: 40px 0px;
 }
 
 .footer-content{
