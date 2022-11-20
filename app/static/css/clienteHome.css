@@ -1,5 +1,6 @@
 main {
   margin: 0px;
+  padding-top: 15vh;
   padding: 24px 0px;
   display: flex;
   flex-direction: column;

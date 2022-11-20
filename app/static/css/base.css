@@ -22,10 +22,12 @@ body {
 
 header{
     width: 100vw;
-    height: 70px;
+    height: 10vh;
     display: flex;
     align-items: center;
     background-color: var(--background1);
+    position: absolute;
+    top: 0;    
 }
 
 header a{
@@ -116,6 +118,241 @@ header a{
     text-transform: uppercase;
 }
 
+
+
+
+
+.carrito-compras{
+    width: 25vw;
+    height: 90vh;
+    position: fixed;
+    top: 10vh;
+    right: 0vw;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    transition: all .5s ease;
+    border-left:  1px solid rgba(65, 67, 70, 0.13);
+    overflow-y: scroll;
+    background-color:var(--background3);
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.header-carrito-compras{
+    display: flex;
+    align-items: center;
+    color: black;
+    height: 10%;
+    width: 100%;   
+    background-color: #ffffff;
+    margin: 24px 0px;
+    padding: 16px 0px;
+    justify-content: space-evenly;
+}
+.close{
+    color: #000;
+}
+.header-carrito-compras span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.header-carrito-compras .title{
+    font-size: 28rem;
+    font-family: var(--font-family1);
+}
+
+.content-menu-lateral{
+    background-color: #ffffff;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.aviso{
+    width: 80%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    margin: 16px 0px;
+    padding: 16px 0px;
+}
+
+.aviso-texto{
+    font-size: 16rem;
+    text-align: justify;
+    padding-bottom: 16px;
+}
+
+.contenedor-logo-carrito{
+    background-color: #e5e6c9;
+    height: 45px;
+    width: 45px;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.agregarProductosL{
+    font-size: 24rem;
+}
+.seguir-comprando{
+    margin: 16px 0px;
+    padding: 16px 14px;
+    font-size: 16rem;
+    border-radius: 4px;
+    border: 1px white;
+    text-transform: uppercase;
+    font-family: var(--font-family2);
+    background-color: #F0F0F0;
+}
+
+.seguir-comprando:hover{
+    background-color: #e5e6c9;
+}
+
+.section{
+    width: 100%;
+    height: 75px;
+    display: flex;
+    color: #000;
+    align-items: center;
+    padding: 4% 0%;
+    margin: 0px 14px;
+}
+
+.info-producto{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 75%;
+    height: 100%;
+}
+
+.info-producto .image{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-producto .image img{
+    height: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.info-producto .datos{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.info-producto .datos .nombre{
+    text-transform: uppercase;
+    font-size: 14rem;
+}
+
+.info-producto .datos .precio{
+    font-size: 12rem;
+}
+
+
+
+.acciones{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px var(--background1);
+    background-color: var(--background2);
+    border-radius: 4px;
+    height: 60%;
+    width: 25%;
+}
+
+
+.acciones .unidades{
+    font-size: 16rem;
+}
+
+.accions-add-remove:hover{
+    cursor:pointer
+}
+
+.acciones .accions-add-remove{
+    height: 30px;
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+}
+
+.accions-add-remove a{
+    color: #000;
+}
+
+
+
+
+.section-subtotal{
+    width: 100%;
+    height: 75px;
+    display: flex;
+    justify-content: center;
+    color: #000;
+}
+
+.section-subtotal-content{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.section-subtotal a{
+    color: #000;
+}
+
+
+.pagar{
+    border-radius: 4px;
+    background-color: var(--background2);
+    height: 70%;
+    width: 60%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.pagar-label{
+    font-size: 16rem;
+}
+
+
+.pagar-subtotal{
+    font-size: 16rem;
+}
+
+
+
+
 footer{
     width: 100vw;
     display: flex;
@@ -139,7 +376,7 @@ footer{
     height: 150px;
     display: flex;
     flex-direction: column;
-    margin: 0px 32px;
+    margin: 0px 0px;
     justify-content: space-between;
 }
 

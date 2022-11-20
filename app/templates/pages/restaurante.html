@@ -10,6 +10,7 @@
 
 <main>
   <div class="container">
+
       {% for p in lista_productos%}
       <a >
         <div  class="card">
@@ -28,7 +29,7 @@
             </div>
             <div class="card-precio">
                 <label for=""> ${{p.precio}}</label>
-                <a class="carrito" href=""><span class="material-symbols-outlined icons">shopping_cart   </span></a>
+                <a class="carrito" href="{% url 'agregarAlCarrito' p.id %} "> <span class="material-symbols-outlined icons">shopping_cart   </span></a>
             </div>
         </div>
       </a>
