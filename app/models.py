@@ -1,21 +1,8 @@
 
 from django.db import models
+from django.contrib.auth.models import User
 
 
-class Order(models.Model):
-    name = models.CharField(max_length=50)
-    amount = models.IntegerField(default=0)
-    address = models.CharField(max_length=50)
-    time = models.IntegerField(default=0)
-    def __str__(self):
-        return self.nombre
-
-class OrderStatus(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    status = models.CharField(max_length=50)
-    date = models.DateTimeField()
-    def __str__(self):
-        return str(self.order)
 
 
 class Restaurante(models.Model):
@@ -45,4 +32,42 @@ class Producto(models.Model):
     def __str__(self):
         return self.nombre
 
-        
+
+
+class Usuario(User):
+    segundo_nombre = models.CharField(max_length=40, null=True)
+    segundo_apellido = models.CharField(max_length=40, null=True)
+    direccion = models.CharField(max_length=128)
+    barrio = models.CharField(max_length=64)
+    fecha_nacimiento = models.DateField()
+    sexo = models.CharField(max_length=16)
+
+    def __str__(self):
+        return self.primer_nombre
+
+    @property
+    def primer_nombre(self):
+        return self.first_name
+
+class Orden(models.Model):
+    idOrden = models.AutoField(primary_key=True, null=False),
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    precio = models.IntegerField(default=0)
+    def __str__(self):
+        return str(self.idOrden)
+
+class EstadoOrden(models.Model):
+    orden = models.ForeignKey(Orden, on_delete=models.CASCADE)
+    estado = models.CharField(max_length=50)
+    fecha = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return str(self.estado)
+
+class DetalleOrden(models.Model):
+    orden =  models.ForeignKey(Orden, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad = models.IntegerField(default=0)
+    precio = models.IntegerField(default=0)
+    subTotal = models.IntegerField(default=0)
+    def __str__(self):
+        return  str(self.orden)

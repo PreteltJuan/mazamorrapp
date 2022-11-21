@@ -47,12 +47,16 @@
           </button>
         </form>
       </div>
-      <a class="ingreso" href=""
-        ><span class="material-symbols-outlined icons">person</span>
-        <span class="tag-ingreso">ingreso</span></a
-      >
-      <a class="carrito"  href="{% url 'limpiar' %}" 
-        ><span class="material-symbols-outlined icons">shopping_cart </span></a
+      <a class="ingreso" href="{% url 'login' %}">
+        <span class="material-symbols-outlined icons">person</span>
+        {% if request.user.is_authenticated %}
+          
+          <span class="tag-ingreso">{{request.user.username}}</span>
+        {% else %}  
+          <span class="tag-ingreso">ingreso</span>
+        {% endif %}
+      </a>
+      <a class="carrito"  onclick="manejarMenuCarrito()" ><span class="material-symbols-outlined icons">shopping_cart </span></a
       >
     </header>
 
@@ -61,63 +65,77 @@
     <div id="menu-carrito" class="carrito-compras">
       <div class="header-carrito-compras">
         <span class="title">Tu carrito</span>
-        <div class="contenedor-logo-carrito">
-          <span class="material-symbols-outlined close ">close</span>
+        <div onclick="manejarMenuCarrito()" class="contenedor-logo-carrito">
+          <span  class="material-symbols-outlined close ">close</span>
         </div>
       </div>
-      <div class="content-menu-lateral">
-        
-        {% if request.session.carrito.items %} 
-
-        {% for key,value in request.session.carrito.items %}
-          <div class="section">
-            <div class="info-producto">
-              <div class="image">
-                <img src="{{ value.imagen }}" alt="">
-              </div>
-              <div class="datos">
-                <div class="nombre">
-                  <span>{{ value.nombre }}</span>
-                </div>
-                <div class="precio">
-                  <span>${{ value.acumulado }}</span>
-                </div>
-              </div>
-            </div>
-            <div class="acciones">
-              <div class="accions-add-remove">
-                {% if value.cantidad == 1 %}
-                <a href="{% url 'eliminarCarrito' key %}"><span class="material-symbols-outlined">delete</span></a>
-                {% else%}
-                  <a href="{% url 'eliminarUnidadCarrito' key %}"><span class="material-symbols-outlined">remove</span></a>
-                {% endif%}
-              </div>
-              <label class="unidades">{{value.cantidad}}U</label>
-              <div class="accions-add-remove">
-                <a href="{% url 'agregarAlCarrito' key %}"><span class="material-symbols-outlined">add</span></a>
-              </div>
-            </div>
-          </div>
+      <div class="container-content">
+        <div class="content-menu-lateral">
           
-        {% endfor%} 
-        <div class="section-subtotal">
-          <div class="section-subtotal-content">
-            <a href="{% url 'limpiar'  %}"><span class="material-symbols-outlined">delete</span></a>
-            <div class="pagar">
-              <span class="pagar-label">Ir a pagar</span>
-              <label class="pagar-subtotal">$ {{ request.session.subTotal }}</label>
+          {% if request.session.carrito.items %} 
+  
+          {% for key,value in request.session.carrito.items %}
+            <div class="section">
+              <div class="info-producto">
+                <div class="image">
+                  <img src="{{ value.imagen }}" alt="">
+                </div>
+                <div class="datos">
+                  <div class="nombre">
+                    <span>{{ value.nombre }}</span>
+                  </div>
+                  <div class="precio">
+                    <span>${{ value.acumulado }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="acciones">
+                <div class="accions-add-remove">
+                  {% if value.cantidad == 1 %}
+                  <a href="{% url 'eliminarCarrito' key %}"><span class="material-symbols-outlined">delete</span></a>
+                  {% else%}
+                    <a href="{% url 'eliminarUnidadCarrito' key %}"><span class="material-symbols-outlined">remove</span></a>
+                  {% endif%}
+                </div>
+                <label class="unidades">{{value.cantidad}}U</label>
+                <div class="accions-add-remove">
+                  <a href="{% url 'agregarAlCarrito' key %}"><span class="material-symbols-outlined">add</span></a>
+                </div>
+              </div>
+            </div>
+            
+          {% endfor%} 
+          <div class="section-subtotal">
+            <div class="section-subtotal-content">
+              <a href="{% url 'limpiar'  %}"><span class="material-symbols-outlined">delete</span></a>
+              {% if request.user.is_authenticated %}
+              <a class="pagar-enlace" href="{% url 'compra'  %}">
+                <div class="pagar">
+                  <span class="pagar-label">Ir a pagar</span>
+                  <label class="pagar-subtotal">$ {{ request.session.subTotal }}</label>
+                </div>
+              </a>
+              {% else %}
+                <a class="pagar-enlace" href="{% url 'compra'  %}">
+                  <div class="pagar">
+                    <span class="pagar-label">Ir a pagar</span>
+                    <label class="pagar-subtotal">$ {{ request.session.subTotal }}</label>
+                  </div>
+                </a>
+              {% endif %}
+              
             </div>
           </div>
-        </div>
-        {% else %}
-        <div class="aviso">
-          <span class="aviso-texto">Aún no tienes productos en tu carrito de compras</span>
-          <div class="contenedor-logo-carrito">
-            <span class="material-symbols-outlined agregarProductosL"> add_shopping_cart </span>
+          {% else %}
+          <div class="aviso">
+            <span class="aviso-texto">Aún no tienes productos en tu carrito de compras</span>
+            <div class="contenedor-logo-carrito">
+              <span class="material-symbols-outlined agregarProductosL"> add_shopping_cart </span>
+            </div>
+            <button class="seguir-comprando">seguir comprando</button>
           </div>
-          <button class="seguir-comprando">seguir comprando</button>
+          {% endif%}
         </div>
-        {% endif%}
       </div>
     </div>
 
@@ -156,5 +174,6 @@
         </div>
       </div>
     </footer>
+    <script src="{% static "scripts/base.js" %}"></script>
   </body>
 </html>
