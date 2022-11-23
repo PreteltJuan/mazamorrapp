@@ -1,0 +1,40 @@
+{% extends "baseCliente.html" %}
+{% load static %}
+{% block titulo %} Mazamorrap {% endblock %}
+
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/restauranteCliente.css' %}" />
+{% endblock %} 
+{% block body %} 
+
+<main>
+  <div class="container">
+    <table class="tabla">
+      <tr>
+          
+          <th>ID orden</th>
+          <th>Datos cliente</th>
+          <th>Dirrecion cliente</th>
+          <th>Nombre producto</th>
+          <th>Precio und</th>
+          <th>Unidades</th>
+          <th>Sub total</th>
+          <th>Estado</th>
+      </tr>
+      {% for p in lista_ordenes%}
+        <tr>
+          <td>{{ p.id }}</td>
+          <td>{{ p.usuario.first_name }} {{ p.usuario.last_name }}</td>
+          <td>{{ p.usuario.direccion }}</td>
+          <td>{{ p.detallerOrden.producto.nombre }}</td>
+          <td>{{ p.detallerOrden.precio }}</td>
+          <td>{{ p.detallerOrden.cantidad }}</td>
+          <td>{{ p.detallerOrden.subTotal}}</td>
+          <td>{{ p.estadoOrden.estado }}</td>
+        </tr>
+      {% endfor%}}
+    </table>
+  </div>
+</main>
+{% endblock %}

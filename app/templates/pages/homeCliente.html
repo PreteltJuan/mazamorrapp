@@ -1,0 +1,57 @@
+{% extends "baseCliente.html" %}
+{% load static %}
+{% block titulo %} Mazamorrap {% endblock %}
+
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/clienteHome.css' %}" />
+{% endblock %} 
+{% block body %} 
+
+    {% if restaurantes == 0%}
+        <span>Aún no tienes restaurantes registrados</span>
+    {% else %}
+    <main>
+  
+        <div class="restaurantes-container">
+          <div class="restaurantes-header">
+            <span class="part1">Tu lista de </span><span class="title-app" >   Restaurantes</span>
+          </div>
+          <div class="restaurantes-content">
+            {% for p in lista_restaurantes%}
+            <a href="{% url 'restauranteCliente' p.nombre %}">
+              <div  class="card">
+                <div class="section-image">
+                    {%if p.imagen %}
+                      <img src="{{ p.imagen.url }}" alt="">
+                    {%endif%}
+                </div>
+                <div class="card-info">
+                  <div class="logo">
+                    {%if p.logo %}
+                      <img src="{{ p.logo.url }}" alt="">
+                    {%endif%}
+                  </div>
+                  <span class="nombre"> {{ p.nombre }}</span> 
+                  <div class="stars-container">
+                    <span class="stars-number"> {{ p.estrellas }}</span>
+                    <span class="material-symbols-outlined stars">hotel_class</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          {% endfor%}
+      
+          </div>
+        </div>
+
+      
+      
+      
+      </main>
+    {% endif %}
+    
+{% endblock %}
+
+
+

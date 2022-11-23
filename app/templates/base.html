@@ -52,6 +52,7 @@
         {% if request.user.is_authenticated %}
           
           <span class="tag-ingreso">{{request.user.username}}</span>
+          <a href="{%url "logout"%}"><span class="material-symbols-outlined icons">logout</span></a>
         {% else %}  
           <span class="tag-ingreso">ingreso</span>
         {% endif %}
@@ -116,7 +117,7 @@
                 </div>
               </a>
               {% else %}
-                <a class="pagar-enlace" href="{% url 'compra'  %}">
+                <a class="pagar-enlace" href="{% url 'login'  %}">
                   <div class="pagar">
                     <span class="pagar-label">Ir a pagar</span>
                     <label class="pagar-subtotal">$ {{ request.session.subTotal }}</label>

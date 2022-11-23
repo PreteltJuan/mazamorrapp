@@ -72,12 +72,31 @@
     border-radius: 4px;
     border: 1px solid rgb(206, 212, 218);
     font-size: 18rem;
-    background-color: var(--color3);
+    background-color: #E8F0FE;
     margin: 32px 0px;
-    color: rgb(255, 255, 255);
+    text-transform: uppercase;
+    cursor:pointer;
 }
 
 .button:hover{
-    cursor:pointer;
-    background-color: var(--color5);
+    
+    background-color: var(--background1);
+    color: rgb(255, 255, 255);
+}
+
+.sin-cuenta{
+    display: flex;
+    height: 40px;
+    align-items: center;
+    width: 450px;
+    justify-content: center;
+}
+
+.sin-cuenta span{
+    font-size: 13rem;
+}
+
+.sin-cuenta a{
+    font-size: 10rem;
+    color: #000;
 }

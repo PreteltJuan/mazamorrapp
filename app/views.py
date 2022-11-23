@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from .models import  Producto, Restaurante, Usuario, Orden, EstadoOrden, DetalleOrden
+from django.shortcuts import render, redirect, HttpResponse
+from .models import Cliente, Producto, Restaurante, Usuario, Orden, EstadoOrden, DetalleOrden
 from .carrito import Carrito
 from django.contrib.auth import authenticate, login as userlogin, logout as userlogout, get_user_model
 
@@ -93,6 +93,36 @@ def login(request):
     return render(request, "pages/login.html", {"error": error})
 
 
+def loginCliente(request):
+
+    if request.user.is_authenticated:
+        try:
+            usuario = Cliente.objects.get(username=request.user)
+            #usuario2 = Usuario.objects.get(username=request.user)
+            return redirect("homeCliente")
+        except:
+            return redirect("home")
+        
+
+    error = False
+    username = request.POST.get("username", "")
+    password = request.POST.get("password", "")
+
+    if username and password:
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            try:
+                usuario = Cliente.objects.get(username=request.user)
+                userlogin(request, user)
+                return redirect("homeCliente")
+            except:
+                return render(request, "pages/loginCliente.html", {"error": True})
+        else:
+            error = True
+
+    return render(request, "pages/loginCliente.html", {"error": error})
+
+
 def registro(request):
     error = False
     nombre_campos = [
@@ -143,6 +173,54 @@ def registro(request):
 
 
 
+def registroCliente(request):
+    error = False
+    nombre_campos = [
+        "primer_nombre",
+        "segundo_nombre",
+        "primer_apellido",
+        "segundo_apellido",
+        "nombre_usuario",
+        "correo",
+        "clave"
+    ]
+
+    campos = {
+        nombre: request.POST.get(nombre, "")
+        for nombre in nombre_campos
+    }
+
+    crear_usuario = campos.get("nombre_usuario")
+    if crear_usuario:
+        campos.update({
+            "first_name": campos.get("primer_nombre"),
+            "last_name": campos.get("primer_apellido"),
+            "username": campos.get("nombre_usuario"),
+            "email": campos.get("correo"),
+            "password": campos.get("clave"),
+        })
+
+        borrar_campos = ("primer_nombre", "primer_apellido",
+                         "nombre_usuario", "correo", "clave")
+
+        for campo in borrar_campos:
+            campos.pop(campo, None)
+
+        user = Cliente.objects.create_user(**campos)
+
+        if user is not None:
+            #userlogin(request, user)
+            return HttpResponse("Client account was succesfully created")
+        else:
+            error = True
+
+    
+    return render(request, "pages/registroCliente.html", {"error": error})
+
+
+
+
+
 def realizar_orden(request):
     if not request.user.is_staff:
         usuario = Usuario.objects.get(username=request.user)
@@ -152,30 +230,85 @@ def realizar_orden(request):
             if producto.unidades < value["cantidad"]:
                 return render(request, "pages/compra.html", {'estado': 2})
 
-        orden = Orden(
-            usuario=usuario,
-            precio=carritoCompras.subTotal)
-        orden.save()
-
-        estadoOrden = EstadoOrden(
-            orden = orden,
-            estado = "solicitada"
-        )
-        estadoOrden.save()
-
         for key, value in carritoCompras.carrito.items():
             producto = Producto.objects.get(id=key)
             producto.unidades -= value["cantidad"]
+
+            estadoOrden = EstadoOrden(
+                estado = "solicitada"
+            )
+            estadoOrden.save()
+
             detallerOrden = DetalleOrden(
-                orden = orden,
                 producto = producto,
                 precio=producto.precio,
                 cantidad=value["cantidad"],
                 subTotal=value["acumulado"],
             )
             detallerOrden.save()
+
+            orden = Orden(
+                usuario=usuario,
+                restaurante = producto.idRestaurante,
+                detallerOrden = detallerOrden,
+                estadoOrden = estadoOrden,
+                )
+            orden.save()
+
+
             producto.save()
 
         carritoCompras.limpiar()
 
         return render(request, "pages/compra.html", {'estado': 1})
+
+
+
+def logout(request):
+    userlogout(request)
+    return redirect("login")
+
+
+
+def homeCliente(request):
+    if not request.user.is_authenticated:
+        return render(request, "pages/loginCliente.html", {"error": False})
+
+    try:
+        cliente = Cliente.objects.get(username=request.user)
+    except:
+        return redirect("home")
+
+    try:
+        restaurantes = Restaurante.objects.filter(idCliente = cliente)
+    except:
+        return HttpResponse("Sin restaurantes")
+        return render(request, "pages/homeCliente.html", {"restaurantes": restaurantes, "status":0})
+
+    ordenes = None
+    
+
+    data = {
+        'lista_restaurantes': restaurantes,
+        'restaurantes': len(restaurantes)
+    }
+    # try:
+    #     for i in restaurantes:
+    #         ordenes += Orden.objects.filter(restaurante = i)
+    # except:
+    #     return HttpResponse("Sin ordenes")
+    #return redirect("home")
+    return render(request, "pages/homeCliente.html", data)
+    
+
+def restauranteCliente(request, nombre_r):
+    restaurante_b = Restaurante.objects.get(nombre=nombre_r)
+    ordenes = Orden.objects.filter(restaurante = restaurante_b)
+    cant_items = len(ordenes)
+    data = {
+        'lista_ordenes': ordenes,
+        'ordenes': cant_items
+    }
+    return render(request, 'pages/restauranteCliente.html', data)
+
+

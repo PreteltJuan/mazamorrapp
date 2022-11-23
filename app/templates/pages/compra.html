@@ -1,119 +1,123 @@
-{% extends "base.html" %}
-{% load static %}
-{% block titulo %} Avahs {% endblock %}
-
-
-{% block styles %}
+{% extends "base.html" %} 
+{% load static %} 
+{% block titulo %} Avahs {% endblock%}
+ {% block styles %}
 <link rel="stylesheet" href="{% static 'css/compra.css' %}" />
-{% endblock %} 
-{% block body %} 
+{% endblock %}
+
+{% block body %}
 <div class="main">
-    <div class="container">
-      {%if estado == 1 %}
-        <div class="aviso">
-          <div class="mensaje">
-            <span>La compra se realizó exitosamente</span>
-          </div>
-          <div class="opciones">
-            <a href="{% url 'home'  %} ">Aceptar</a>
+  <div class="container">
+    <div class="left">
+      <div class="contacto">
+        <h2>Datos de contacto</h2>
+        <div class="content">
+          <label for="">Nombres: </label>
+          <label for="">{{ usuario.first_name }}</label>
+          <label for="">{{ usuario.segundo_nombre }}</label>
+        </div>
+        <div class="content">
+          <label for="">Apellidos: </label>
+          <label for="">{{ usuario.last_name }}</label>
+          <label for="">{{ usuario.segundo_apellido }}</label>
+        </div>
+        <div class="content">
+          <label for="">Usuario: </label>
+          <label for="">{{ usuario.username }}</label>
+        </div>
+        <div class="content">
+          <label for="">Email: </label>
+          <label for="">{{ usuario.email }}</label>
+        </div>
+        <div class="content">
+          <label for="">Ciudad, Barrio: </label>
+          <label for="">Medellín, </label
+          ><label for="">{{ usuario.barrio }}</label>
+        </div>
+        <div class="content">
+          <label for="">Dirección: </label>
+          <label for="">{{ usuario.direccion }}</label>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="productos">
+        <h2>productos</h2>
+        <div class="content">
+          <div class="info-productos">
+            <div class="datos-productos">
+              <div class="nombre-productos">
+                <span>Nombre</span>
+              </div>
+              <div class="precio-productos">
+                <span>Unidades</span>
+              </div>
+              <div class="precio-productos">
+                <span>Total</span>
+              </div>
+            </div>
           </div>
         </div>
-      {%elif estado == 2%}
-      <div class="aviso">
+        {% for key,value in request.session.carrito.items %}
+        <div class="content">
+          <div class="info-productos">
+            <div class="datos-productos">
+              <div class="nombre-productos">
+                <span>{{ value.nombre }}</span>
+              </div>
+              <div class="precio-productos">
+                <span>{{ value.cantidad }}</span>
+              </div>
+              <div class="precio-productos">
+                <span>${{ value.acumulado }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor%}
+
+        <div class="content">
+          <div class="info-productos">
+            <div class="datos-productos">
+              <div class="nombre-productos">
+                <span>Total:</span>
+              </div>
+
+              <div class="precio-productos">
+                <span>${{ request.session.subTotal }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="boton-pagar">
+          <a href="{% url 'realizarOrden'  %} ">realizar orden </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if estado %}
+<div class="container-content-resultado ">
+  {%if estado == 1 %}
+      <div class="aviso-resultado">
         <div class="mensaje">
-          <span>La compra no se pudo realizar</span>
+          <span>La orden se realizó exitosamente</span>
+        </div>
+        <div class="opciones">
+          <a href="{% url 'home'  %} ">Aceptar</a>
+        </div>
+      </div>
+  {%elif estado == 2%}
+      <div class="aviso-resultado">
+        <div class="mensaje">
+          <span>Hubo un error durante el proceso</span>
         </div>
         <div class="opciones">
           <a href="{% url 'compra'  %} ">Aceptar</a>
         </div>
       </div>
-      {%endif%}
-        <div class="left">
-            <div class="contacto">
-                <h2>Datos de contacto</h2>
-                <div class="content">
-                    <label for="">Nombres:  </label>
-                    <label for="">{{ usuario.first_name }}</label> 
-                    <label for="">{{ usuario.segundo_nombre }}</label>
-                </div>
-                <div class="content">
-                    <label for="">Apellidos:  </label>
-                    <label for="">{{ usuario.last_name }}</label>
-                    <label for="">{{ usuario.segundo_apellido }}</label>
-                </div>
-                <div class="content">
-                    <label for="">Usuario:  </label>
-                    <label for="">{{ usuario.username }}</label>
-                </div>
-                <div class="content">
-                    <label for="">Email:  </label>
-                    <label for="">{{ usuario.email }}</label>
-                </div>
-                <div class="content">
-                    <label for="">Ciudad, Barrio:  </label>
-                    <label for="">Medellín, </label><label for="">{{ usuario.barrio }}</label>
-                </div>
-                <div class="content">
-                    <label for="">Dirección:  </label>
-                    <label for="">{{ usuario.direccion }}</label>
-                </div>
-                
-            </div>
-        </div>
-        <div class="right">
-            <div class="productos">
-                <h2>productos</h2>
-                <div class="content">
-                    <div class="info-productos">
-                        <div class="datos-productos">
-                          <div class="nombre-productos">
-                            <span>Nombre</span>
-                          </div>
-                          <div class="precio-productos">
-                            <span>Unidades</span>
-                          </div>
-                          <div class="precio-productos">
-                            <span>Total</span>
-                          </div>
-                        </div>
-                      </div>
-                </div> 
-                {% for key,value in request.session.carrito.items %}
-                <div class="content">
-                    <div class="info-productos">
-                        <div class="datos-productos">
-                          <div class="nombre-productos">
-                            <span>{{ value.nombre }}</span>
-                          </div>
-                          <div class="precio-productos">
-                            <span>{{ value.cantidad }}</span>
-                          </div>
-                          <div class="precio-productos">
-                            <span>${{ value.acumulado }}</span>
-                          </div>
-                        </div>
-                      </div>
-                </div>  
-                {% endfor%}
-                
-                <div class="content">
-                    <div class="info-productos">
-                        <div class="datos-productos">
-                          <div class="nombre-productos">
-                            <span>Total:</span>
-                          </div>
-                         
-                          <div class="precio-productos">
-                            <span>${{ request.session.subTotal }}</span>
-                          </div>
-                        </div>
-                      </div>
-                </div>
-                <div class="boton-pagar">
-                    <a href="{% url 'realizarOrden'  %} ">realizar orden </a>
-                </div>
-            </div>
-        </div>
+  {%endif%}
     </div>
-</div>
+  {% endif %}
 {% endblock %}

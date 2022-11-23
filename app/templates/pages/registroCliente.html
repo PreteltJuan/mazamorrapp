@@ -65,47 +65,6 @@
                             <input type="password" id="clave2" required>
                         </div>
 
-                        <div class="contenedor-input">
-                            <label>Barrio * </label>
-                            <input type="text" list="barrios" name="barrio" required>
-                            <datalist id="barrios">
-                                <option value="Popular 1" />
-                                <option value="Popular 2" />
-                                <option value="El Rodeo" />
-                                <option value="Santo Domingo Savio 1" />
-                                <option value="La Milagrosa" />
-                                <option value="Gerona" />
-                                <option value="Las Violetas" />
-                                <option value="Las Mercedes" />
-                                <option value="Nueva Villa de Aburrá" />
-                                <option value="Miravalle" />
-                                <option value="El Nogal – Los Almendros" />
-                            </datalist>
-                        </div>
-
-                        <div class="contenedor-input">
-                            <label>Direccion * </label>
-                            <input type="text" name="direccion" required>
-                        </div>
-
-                        <div class="contenedor-input">
-                            <label>Fecha de nacimiento * </label>
-                            <input type="date" name="fecha" required>
-                        </div>
-
-                        <div class="contenedor-input">
-                            <label>Género * </label>
-                            <select name="sexo">
-                                <option>Hombre</option>
-                                <option>Mujer</option>
-                                <option>Otro</option>
-                            </select>
-                        </div>
-                        <div class="sin-cuenta">
-                            <span>Tengo una cuenta</span>
-                            <a href="{% url "login" %}" style="font-size: 16px"> iniciar sesi&oacute;n </a>
-                        </div>
-                        
                         <p style="color: red" id="error"></p>
                         <input type="submit" class="button " value="Registrarse">
                     </div>

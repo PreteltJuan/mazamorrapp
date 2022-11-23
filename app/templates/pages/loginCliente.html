@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "baseCliente.html" %}
 {% load static %}
 {% block titulo %} Avahs {% endblock %}
 
@@ -36,10 +36,6 @@
                                 Contrase&ntilde;a *
                             </label>
                             <input type="password" name="password" required>
-                        </div>
-                        <div class="sin-cuenta">
-                            <span>¿No tienes cuenta? Registrate</span>
-                            <a href="{% url "registro" %}" style="font-size: 16px"> aqu&iacute;</a>
                         </div>
                         <input type="submit" class="button " value="Iniciar">
     
